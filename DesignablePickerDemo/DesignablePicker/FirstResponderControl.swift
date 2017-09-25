@@ -20,10 +20,19 @@ protocol FirstResponderControlDelegate: class
 
 class FirstResponderControl: UIControl, UIKeyInput
 {
-     weak var delegate: FirstResponderControlDelegate?
+    weak var delegate: FirstResponderControlDelegate?
+    private var _inputView: UIView?
+    override var inputView: UIView? {
+        get {
+            return _inputView
+        }
+        set {
+            _inputView = newValue
+        }
+    }
     
     override var canBecomeFirstResponder: Bool {
-//        print("[\(type(of: self)) \(#function)]")
+        //        print("[\(type(of: self)) \(#function)]")
         return true
     }
     

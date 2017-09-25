@@ -227,6 +227,10 @@ import UIKit
         // Adding custom subview on top of our view (over any custom drawing > see note below)
     }
     
+    @objc func datePickerDidChangeValue(sender: UIDatePicker) {
+        print("[\(type(of: self)) \(#function)] date: \(sender.date.description)")
+    }
+    
     fileprivate func setupViewsOnLoad()
     {
         // Default falues
@@ -240,6 +244,10 @@ import UIKit
         self.initialFrame = nil
         self.responderView.addTarget(self.responderView, action: #selector(becomeFirstResponder), for: .touchUpInside)
         self.responderView.delegate = self
+        
+        let datePicker = UIDatePicker(frame: .zero)
+        datePicker.addTarget(self, action: #selector(datePickerDidChangeValue(sender:)), for: .valueChanged)
+        self.responderView.inputView = datePicker
     }
 }
 
