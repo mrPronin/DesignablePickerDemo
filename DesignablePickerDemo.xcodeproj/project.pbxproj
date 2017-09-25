@@ -12,6 +12,7 @@
 		095436C41F78F57200540179 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 095436C21F78F57200540179 /* Main.storyboard */; };
 		095436C61F78F57200540179 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095436C51F78F57200540179 /* Assets.xcassets */; };
 		095436C91F78F57200540179 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 095436C71F78F57200540179 /* LaunchScreen.storyboard */; };
+		095436D11F7909E500540179 /* DesignablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095436D01F7909E500540179 /* DesignablePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		095436C51F78F57200540179 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		095436C81F78F57200540179 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		095436CA1F78F57200540179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		095436D01F7909E500540179 /* DesignablePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignablePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				095436BE1F78F57200540179 /* AppDelegate.swift */,
 				095436C01F78F57200540179 /* ViewController.swift */,
+				095436D01F7909E500540179 /* DesignablePicker.swift */,
 				095436C21F78F57200540179 /* Main.storyboard */,
 				095436C51F78F57200540179 /* Assets.xcassets */,
 				095436C71F78F57200540179 /* LaunchScreen.storyboard */,
@@ -136,6 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095436D11F7909E500540179 /* DesignablePicker.swift in Sources */,
 				095436C11F78F57200540179 /* ViewController.swift in Sources */,
 				095436BF1F78F57200540179 /* AppDelegate.swift in Sources */,
 			);
@@ -275,10 +279,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNK4VM8TWA;
+				DEVELOPMENT_TEAM = Q8M6V9HM9E;
 				INFOPLIST_FILE = DesignablePickerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adviqo.DesignablePickerDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pronin.DesignablePickerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -290,10 +294,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNK4VM8TWA;
+				DEVELOPMENT_TEAM = Q8M6V9HM9E;
 				INFOPLIST_FILE = DesignablePickerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adviqo.DesignablePickerDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pronin.DesignablePickerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
