@@ -9,10 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var pickerView: DesignablePicker!
+    
+    let salutation = "mr, mrs, ms"
+    var dataSource: [String] = []
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.dataSource = salutation.components(separatedBy: ", ")
+
+        self.pickerView.text = "Initial text"
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +29,26 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    // MARK: - Actions
+    
+    @IBAction func setSpaceTextAction(_ sender: UIButton)
+    {
+        self.pickerView.set(text: " ", animated: true)
+    }
+    
+    @IBAction func setNilAction(_ sender: UIButton)
+    {
+        self.pickerView.set(text: nil, animated: true)
+    }
+    
+    @IBAction func setTextAction(_ sender: UIButton)
+    {
+        self.pickerView.set(text: "Bla-bla-bla", animated: true)
+    }
+    
+    @IBAction func setEmptyTextAction(_ sender: UIButton)
+    {
+        self.pickerView.set(text: "", animated: true)
+    }
 }
 
