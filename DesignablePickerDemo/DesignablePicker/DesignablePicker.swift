@@ -5,14 +5,85 @@
 //  Created by Oleksandr Pronin on 25.09.17.
 //  Copyright © 2017 adviqo AG. All rights reserved.
 //
+/*
+ Create an IBDesignable UIView subclass with code from an XIB file in Xcode 6
+ http://supereasyapps.com/blog/2014/12/15/create-an-ibdesignable-uiview-subclass-with-code-from-an-xib-file-in-xcode-6
+ 
+ Tutorial: Building Your Own Custom IBDesignable View: A UITextView With Placeholder
+ https://digitalleaves.com/blog/2015/02/tutorial-building-your-own-custom-ibdesignable-view-a-uitextview-with-placeholder/
+ */
 
 import UIKit
 
+@objc protocol PickerInputDelegate: class, NSObjectProtocol
+{
+    func pickerInputDidCancel(_ picker: DesignablePicker)
+    func pickerInput(_ picker: DesignablePicker, doneWithValue value: String, andIndex index:Int)
+    @objc optional func pickerInput(_ picker: DesignablePicker, changedWithValue value: String, andIndex index:Int)
+    @objc optional func pickerInput(_ picker: DesignablePicker, viewForRow row: Int, reusing view: UIView?) -> UIView
+    @objc optional func pickerInput(_ picker: DesignablePicker, titleForRow row: Int) -> String
+    @objc optional func pickerInputRowHeight(_ picker: DesignablePicker) -> CGFloat
+}
+
 @IBDesignable class DesignablePicker: UIView
 {
-    //MARK: Public API
+    //MARK: Public
     
-    @IBInspectable var color: UIColor = UIColor.lightGray {
+    public weak var delegate: PickerInputDelegate?
+    public var data: [String]? {
+        get {
+            return self.pickerInputViewController.data
+        }
+        set {
+            self.pickerInputViewController.data = newValue
+        }
+    }
+
+    public var text:String? {
+        set(newText) {
+            self.setup(text: text, forTextLabel: self.textLabel, titleLabel: self.titleLabel, animated: false)
+        }
+        get {
+            return self.textLabel.text
+        }
+    }
+    
+    public func set(text perhapsText:String?, animated:Bool = false)
+    {
+        self.setup(text: perhapsText, forTextLabel: self.textLabel, titleLabel: self.titleLabel, animated: animated)
+    }
+    
+    public var font = UIFont.systemFont(ofSize: 18) {
+        didSet {
+            self.titleFontScale = titleFont.pointSize / font.pointSize
+        }
+    }
+    
+    public var titleFont = UIFont.systemFont(ofSize: 10) {
+        didSet {
+            self.titleFontScale = titleFont.pointSize / font.pointSize
+        }
+    }
+    
+    public var pickerFont: UIFont? {
+        get {
+            return self.pickerInputViewController.font
+        }
+        set {
+            self.pickerInputViewController.font = newValue
+        }
+    }
+
+    public var pickerColor: UIColor? {
+        get {
+            return self.pickerInputViewController.tintColor
+        }
+        set {
+            self.pickerInputViewController.tintColor = newValue
+        }
+    }
+
+    /*@IBInspectable*/ var color: UIColor = UIColor.lightGray {
         didSet {
             self.layer.borderColor = color.cgColor
             self.titleLabel.textColor = color
@@ -20,7 +91,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var background: UIColor? {
+    /*@IBInspectable*/ var background: UIColor? {
         get {
             return self.view.backgroundColor
         }
@@ -30,7 +101,7 @@ import UIKit
         }
     }
 
-    @IBInspectable var textColor: UIColor? {
+    /*@IBInspectable*/ var textColor: UIColor? {
         set(newColor) {
             self.textLabel.textColor = newColor
             setNeedsLayout()
@@ -39,15 +110,15 @@ import UIKit
             return self.textLabel.textColor
         }
     }
-
-    @IBInspectable var borderWidth: CGFloat = 1.0 {
+    
+    /*@IBInspectable*/ var borderWidth: CGFloat = 1.0 {
         didSet {
             self.layer.borderWidth = borderWidth
             setNeedsLayout()
         }
     }
     
-    @IBInspectable var cornerRadius: CGFloat = 4.0 {
+    /*@IBInspectable*/ var cornerRadius: CGFloat = 4.0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
             setNeedsLayout()
@@ -60,33 +131,6 @@ import UIKit
         }
         get {
             return self.titleLabel.text
-        }
-    }
-
-    public var text:String? {
-        set(newText) {
-//            self.textLabel.text = newText
-            self.setup(text: text, forTextLabel: self.textLabel, titleLabel: self.titleLabel, animated: false)
-//            setNeedsLayout()
-        }
-        get {
-            return self.textLabel.text
-        }
-    }
-    
-    public func set(text perhapsText:String?, animated:Bool = false)
-    {
-        self.setup(text: perhapsText, forTextLabel: self.textLabel, titleLabel: self.titleLabel, animated: animated)
-    }
-
-    public var font = UIFont.systemFont(ofSize: 18) {
-        didSet {
-            self.titleFontScale = titleFont.pointSize / font.pointSize
-        }
-    }
-    public var titleFont = UIFont.systemFont(ofSize: 10) {
-        didSet {
-            self.titleFontScale = titleFont.pointSize / font.pointSize
         }
     }
 
@@ -129,7 +173,8 @@ import UIKit
     fileprivate var titleFontScale:CGFloat = 1
     fileprivate let textLeadingSpace:CGFloat = 8
     fileprivate let titleAnimationDuration:TimeInterval = 0.3
-    
+    fileprivate let pickerInputViewController = PickerInputViewController(nibName: nil, bundle: nil)
+
     fileprivate func setup(text perhapsText:String?, forTextLabel textLabel:UILabel, titleLabel:UILabel, animated:Bool, selected forceSelected:Bool = false)
     {
         guard let titleSuperView = titleLabel.superview else {
@@ -209,8 +254,16 @@ import UIKit
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: className, bundle: bundle)
         self.view = nib.instantiate(withOwner: self, options: nil).first as! UIView
+        
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
+        // use bounds not frame or it'll be offset
+        //        self.view.frame = bounds
+        
+        // Make the view stretch with containing view
+        //        self.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        // Adding custom subview on top of our view (over any custom drawing > see note below)
+
         addSubview(self.view)
         
         let views:[String:UIView] = ["contentView" : self.view]
@@ -218,18 +271,13 @@ import UIKit
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat:"H:|-offset-[contentView]-offset-|", options: NSLayoutFormatOptions.init(rawValue: 0), metrics: metrics, views: views))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat:"V:|-offset-[contentView]-offset-|", options: NSLayoutFormatOptions.init(rawValue: 0), metrics: metrics, views: views))
         
-        
-        // use bounds not frame or it'll be offset
-//        self.view.frame = bounds
-        
-        // Make the view stretch with containing view
-//        self.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-        // Adding custom subview on top of our view (over any custom drawing > see note below)
     }
     
+    /*
     @objc func datePickerDidChangeValue(sender: UIDatePicker) {
         print("[\(type(of: self)) \(#function)] date: \(sender.date.description)")
     }
+    */
     
     fileprivate func setupViewsOnLoad()
     {
@@ -242,36 +290,69 @@ import UIKit
         self.textLabel.font = self.font
         self.titleFontScale = self.titleFont.pointSize / self.font.pointSize
         self.initialFrame = nil
-        self.responderView.addTarget(self.responderView, action: #selector(becomeFirstResponder), for: .touchUpInside)
-        self.responderView.delegate = self
+        self.responderView.inputView = self.pickerInputViewController.view
+        self.responderView.inputAccessoryView = self.pickerInputViewController.toolbar
         
-        let datePicker = UIDatePicker(frame: .zero)
-        datePicker.addTarget(self, action: #selector(datePickerDidChangeValue(sender:)), for: .valueChanged)
-        self.responderView.inputView = datePicker
+        self.pickerFont = UIFont.systemFont(ofSize: 14)
+//        self.pickerInputViewController.color = self.color
+        self.pickerInputViewController.delegate = self
+        
+//        self.responderView.addTarget(self.responderView, action: #selector(becomeFirstResponder), for: .touchUpInside)
+//        self.responderView.delegate = self
+        
+//        let datePicker = UIDatePicker(frame: .zero)
+//        datePicker.addTarget(self, action: #selector(datePickerDidChangeValue(sender:)), for: .valueChanged)
+//        self.responderView.inputView = datePicker
     }
 }
 
-extension DesignablePicker: FirstResponderControlDelegate
+extension DesignablePicker: PickerInputViewControllerDelegate
 {
-    func firstResponderControlHasText(_ control: FirstResponderControl) -> Bool
+    func pickerInputViewControllerDidCancel(_ controller: PickerInputViewController)
     {
 //        print("[\(type(of: self)) \(#function)]")
-        guard let text = self.textLabel.text else {
-            return false
-        }
-        if text.isEmpty {
-            return false
-        }
-        return true
+        self.responderView.resignFirstResponder()
+        self.delegate?.pickerInputDidCancel(self)
     }
     
-    func firstResponderControlDidDeleteBackwards(_ control: FirstResponderControl)
+    func pickerInput(_ controller: PickerInputViewController, doneWithValue value: String, andIndex index:Int)
     {
 //        print("[\(type(of: self)) \(#function)]")
+        self.responderView.resignFirstResponder()
+        self.delegate?.pickerInput(self, doneWithValue: value, andIndex: index)
     }
     
-    func firstResponderControl(_ control: FirstResponderControl, didReceiveText text: String)
+    func pickerInput(_ controller: PickerInputViewController, changedWithValue value: String, andIndex index:Int)
     {
-//        print("[\(type(of: self)) \(#function)] text: \(text)")
+//        print("[\(type(of: self)) \(#function)]")
+        self.delegate?.pickerInput?(self, changedWithValue: value, andIndex: index)
+    }
+    
+    func pickerInput(_ controller: PickerInputViewController, viewForRow row: Int, reusing view: UIView?) -> UIView?
+    {
+//        print("[\(type(of: self)) \(#function)]")
+        if let delegateView = self.delegate?.pickerInput?(self, viewForRow: row, reusing: view) {
+            return delegateView
+        }
+        return nil
+    }
+    
+    func pickerInput(_ controller: PickerInputViewController, titleForRow row: Int) -> String?
+    {
+//        print("[\(type(of: self)) \(#function)]")
+        if let delegateTitle = self.delegate?.pickerInput?(self, titleForRow: row) {
+            // try to get title from delegate
+            return delegateTitle
+        }
+        return nil
+    }
+    
+    func pickerInputRowHeight(_ controller: PickerInputViewController) -> CGFloat?
+    {
+//        print("[\(type(of: self)) \(#function)]")
+        if let rowHeightForComponent = self.delegate?.pickerInputRowHeight?(self) {
+            return rowHeightForComponent
+        }
+        return nil
     }
 }
