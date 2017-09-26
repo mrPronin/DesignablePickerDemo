@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DesignablePicker" customModule="DesignablePickerDemo" customModuleProvider="target">
             <connections>
+                <outlet property="pickerArrowImageView" destination="eUU-v3-sKq" id="J5f-86-VdB"/>
                 <outlet property="responderView" destination="S5Z-Eq-3OO" id="IKg-2c-kBX"/>
                 <outlet property="textLabel" destination="Tk7-OO-6eu" id="wfN-tw-ELa"/>
                 <outlet property="titleLabel" destination="583-Zq-9we" id="5hJ-Tf-Zch"/>
@@ -26,13 +27,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Title label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="583-Zq-9we" userLabel="titleLabel">
-                    <rect key="frame" x="8" y="14" width="72.5" height="21.5"/>
+                    <rect key="frame" x="8" y="14" width="147" height="21.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.62745098040000002" green="0.62745098040000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Text label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk7-OO-6eu" userLabel="textLabel">
-                    <rect key="frame" x="8" y="14.5" width="72.5" height="21.5"/>
+                    <rect key="frame" x="8" y="14.5" width="147" height="21.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -52,7 +53,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="583-Zq-9we" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="1Rf-Yb-lRQ"/>
-                <constraint firstItem="eUU-v3-sKq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tk7-OO-6eu" secondAttribute="trailing" constant="8" id="2Gx-Ih-wAW"/>
+                <constraint firstItem="eUU-v3-sKq" firstAttribute="leading" secondItem="Tk7-OO-6eu" secondAttribute="trailing" constant="8" id="2Gx-Ih-wAW"/>
                 <constraint firstItem="Tk7-OO-6eu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="7tg-MV-zSJ"/>
                 <constraint firstAttribute="bottom" secondItem="S5Z-Eq-3OO" secondAttribute="bottom" id="Cry-k5-xiB"/>
                 <constraint firstAttribute="trailing" secondItem="eUU-v3-sKq" secondAttribute="trailing" constant="8" id="E7b-cb-Kbb"/>
@@ -60,7 +61,7 @@
                 <constraint firstItem="583-Zq-9we" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="GoO-yb-FsG"/>
                 <constraint firstItem="S5Z-Eq-3OO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dd5-M4-75i"/>
                 <constraint firstItem="Tk7-OO-6eu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mbe-Bf-jzH"/>
-                <constraint firstItem="eUU-v3-sKq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="583-Zq-9we" secondAttribute="trailing" constant="8" id="q2R-et-ayM"/>
+                <constraint firstItem="eUU-v3-sKq" firstAttribute="leading" secondItem="583-Zq-9we" secondAttribute="trailing" constant="8" id="q2R-et-ayM"/>
                 <constraint firstItem="eUU-v3-sKq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="xYs-ox-bHz"/>
                 <constraint firstItem="S5Z-Eq-3OO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zUS-jp-iYe"/>
             </constraints>

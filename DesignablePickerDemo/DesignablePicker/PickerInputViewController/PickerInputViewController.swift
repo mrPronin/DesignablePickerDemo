@@ -23,8 +23,8 @@ class PickerInputViewController: UIViewController
     // MARK: - Public
     
     @IBOutlet var toolbar: UIToolbar!
-    @IBOutlet public weak var cancelButton: UIBarButtonItem!
-    @IBOutlet public weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     public weak var delegate: PickerInputViewControllerDelegate?
     
     var data: [String]?

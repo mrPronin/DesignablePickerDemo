@@ -23,6 +23,7 @@
 		095436F91F79565500540179 /* pickerArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 095436F51F79545500540179 /* pickerArrow@2x.png */; };
 		095436FA1F79565800540179 /* pickerArrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 095436F61F79545500540179 /* pickerArrow@3x.png */; };
 		095436FC1F79584100540179 /* FirstResponderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095436FB1F79584100540179 /* FirstResponderControl.swift */; };
+		095436FE1F7A984600540179 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095436FD1F7A984500540179 /* UIImageViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		095436F61F79545500540179 /* pickerArrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickerArrow@3x.png"; sourceTree = "<group>"; };
 		095436F71F79545600540179 /* pickerArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickerArrow.png; sourceTree = "<group>"; };
 		095436FB1F79584100540179 /* FirstResponderControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderControl.swift; sourceTree = "<group>"; };
+		095436FD1F7A984500540179 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				095436E81F7934AE00540179 /* StringExtension.swift */,
 				095436E91F7934AE00540179 /* UIColorExtension.swift */,
 				095436EA1F7934AE00540179 /* UIViewExtension.swift */,
+				095436FD1F7A984500540179 /* UIImageViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				095436EB1F7934B500540179 /* DesignablePicker.swift in Sources */,
 				095436F31F7946AA00540179 /* PickerInputViewController.swift in Sources */,
 				095436EE1F7934D800540179 /* UIColorExtension.swift in Sources */,
+				095436FE1F7A984600540179 /* UIImageViewExtension.swift in Sources */,
 				095436C11F78F57200540179 /* ViewController.swift in Sources */,
 				095436FC1F79584100540179 /* FirstResponderControl.swift in Sources */,
 				095436BF1F78F57200540179 /* AppDelegate.swift in Sources */,

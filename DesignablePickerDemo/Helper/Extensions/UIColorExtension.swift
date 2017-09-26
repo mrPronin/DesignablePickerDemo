@@ -1,6 +1,6 @@
 //
 //  UIColor.swift
-//  ibank-dvbank-ios
+//  DesignablePickerDemo
 //
 //  Created by Aleksandr Pronin on 1/12/17.
 //  Copyright © 2017 Aleksandr Pronin. All rights reserved.

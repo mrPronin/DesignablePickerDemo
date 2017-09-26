@@ -30,21 +30,31 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var pickerView: DesignablePicker!
     
-    let salutation = "mr, mrs, ms"
-    var dataSource: [String] = []
-    let font = UIFont(name: FontName.HelveticaNeueLight.rawValue, size: FontStandardSize.h3.rawValue)!
-    let titleFont = UIFont(name: FontName.HelveticaNeue.rawValue, size: FontStandardSize.h6.rawValue)!
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        self.dataSource = salutation.components(separatedBy: ", ")
-//        self.pickerView.text = "Initial text"
-        self.pickerView.data = self.dataSource
+        let font = UIFont(name: FontName.HelveticaNeueLight.rawValue, size: FontStandardSize.h3.rawValue)!
+        let titleFont = UIFont(name: FontName.HelveticaNeue.rawValue, size: FontStandardSize.h6.rawValue)!
+        let pickerFont = UIFont(name: FontName.HelveticaNeue.rawValue, size: FontStandardSize.h3.rawValue)!
+
+        let backgroundColor = UIColor(hex: "FAFAFA")
+        self.view.backgroundColor = backgroundColor
+
+        let color = UIColor(hex: "A0A0A0")
+        let pickerColor = UIColor(hex: "5A99BB")
+        let textColor = UIColor(hex: "333333")
+
+        self.pickerView.data = "mr, mrs, ms".components(separatedBy: ", ")
         self.pickerView.delegate = self
-        self.pickerView.pickerColor = UIColor(hex: "A36BC0")
-        self.pickerView.pickerFont = font
+        self.pickerView.color = color
+        self.pickerView.font = font
+        self.pickerView.titleFont = titleFont
+        self.pickerView.pickerColor = pickerColor
+        self.pickerView.pickerFont = pickerFont
+        self.pickerView.background = UIColor.white
+        self.pickerView.textColor = textColor
+        self.pickerView.toolbarBackgroundColor = UIColor(hex: "E2EBF0")
     }
 
     override func didReceiveMemoryWarning() {

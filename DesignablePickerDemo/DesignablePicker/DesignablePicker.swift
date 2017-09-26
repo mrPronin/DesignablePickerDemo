@@ -82,16 +82,38 @@ import UIKit
             self.pickerInputViewController.tintColor = newValue
         }
     }
-
-    /*@IBInspectable*/ var color: UIColor = UIColor.lightGray {
+    
+    public var toolbarBackgroundColor: UIColor? {
+        get {
+            return self.pickerInputViewController.toolbar.backgroundColor
+        }
+        set {
+            self.pickerInputViewController.toolbar.backgroundColor = newValue
+        }
+    }
+    
+    public var cancelButton: UIBarButtonItem! {
+        get {
+            return self.pickerInputViewController.cancelButton
+        }
+    }
+    
+    public var doneButton: UIBarButtonItem! {
+        get {
+            return self.pickerInputViewController.doneButton
+        }
+    }
+    
+    @IBInspectable var color: UIColor = UIColor.lightGray {
         didSet {
             self.layer.borderColor = color.cgColor
             self.titleLabel.textColor = color
+            self.pickerArrowImageView.imageColor = color
             setNeedsLayout()
         }
     }
     
-    /*@IBInspectable*/ var background: UIColor? {
+    @IBInspectable var background: UIColor? {
         get {
             return self.view.backgroundColor
         }
@@ -101,7 +123,7 @@ import UIKit
         }
     }
 
-    /*@IBInspectable*/ var textColor: UIColor? {
+    @IBInspectable var textColor: UIColor? {
         set(newColor) {
             self.textLabel.textColor = newColor
             setNeedsLayout()
@@ -111,14 +133,14 @@ import UIKit
         }
     }
     
-    /*@IBInspectable*/ var borderWidth: CGFloat = 1.0 {
+    @IBInspectable var borderWidth: CGFloat = 1.0 {
         didSet {
             self.layer.borderWidth = borderWidth
             setNeedsLayout()
         }
     }
     
-    /*@IBInspectable*/ var cornerRadius: CGFloat = 4.0 {
+    @IBInspectable var cornerRadius: CGFloat = 4.0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
             setNeedsLayout()
@@ -167,6 +189,7 @@ import UIKit
     @IBOutlet fileprivate weak var titleLabel: UILabel!
     @IBOutlet fileprivate weak var textLabel: UILabel!
     @IBOutlet fileprivate weak var responderView: FirstResponderControl!
+    @IBOutlet fileprivate weak var pickerArrowImageView: UIImageView!
     
     fileprivate var view: UIView!
     fileprivate var initialFrame:CGRect?
@@ -318,6 +341,7 @@ extension DesignablePicker: PickerInputViewControllerDelegate
     func pickerInput(_ controller: PickerInputViewController, doneWithValue value: String, andIndex index:Int)
     {
 //        print("[\(type(of: self)) \(#function)]")
+        self.set(text: value, animated: true)
         self.responderView.resignFirstResponder()
         self.delegate?.pickerInput(self, doneWithValue: value, andIndex: index)
     }
