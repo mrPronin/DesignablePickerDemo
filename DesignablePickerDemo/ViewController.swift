@@ -41,8 +41,9 @@ class ViewController: UIViewController {
         let backgroundColor = UIColor(hex: "FAFAFA")
         self.view.backgroundColor = backgroundColor
 
+        let backgroundDarkColor = UIColor(hex: "E2EBF0")
         let color = UIColor(hex: "A0A0A0")
-        let pickerColor = UIColor(hex: "5A99BB")
+        let mainColor = UIColor(hex: "5A99BB")
         let textColor = UIColor(hex: "333333")
 
         self.pickerView.data = "mr, mrs, ms".components(separatedBy: ", ")
@@ -50,11 +51,12 @@ class ViewController: UIViewController {
         self.pickerView.color = color
         self.pickerView.font = font
         self.pickerView.titleFont = titleFont
-        self.pickerView.pickerColor = pickerColor
+        self.pickerView.pickerColor = mainColor
         self.pickerView.pickerFont = pickerFont
         self.pickerView.background = UIColor.white
         self.pickerView.textColor = textColor
-        self.pickerView.toolbarBackgroundColor = UIColor(hex: "E2EBF0")
+        self.pickerView.toolbarBackgroundColor = backgroundDarkColor
+        self.pickerView.activeStateColor = mainColor
     }
 
     override func didReceiveMemoryWarning() {

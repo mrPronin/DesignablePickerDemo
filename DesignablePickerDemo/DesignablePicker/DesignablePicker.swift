@@ -11,7 +11,10 @@
  
  Tutorial: Building Your Own Custom IBDesignable View: A UITextView With Placeholder
  https://digitalleaves.com/blog/2015/02/tutorial-building-your-own-custom-ibdesignable-view-a-uitextview-with-placeholder/
- */
+ 
+ iOS SDK: Creating a Custom Text Input View
+ https://code.tutsplus.com/tutorials/ios-sdk-creating-a-custom-text-input-view--mobile-15661
+*/
 
 import UIKit
 
@@ -91,6 +94,8 @@ import UIKit
             self.pickerInputViewController.toolbar.backgroundColor = newValue
         }
     }
+    
+    public var activeStateColor: UIColor?
     
     public var cancelButton: UIBarButtonItem! {
         get {
@@ -296,6 +301,39 @@ import UIKit
         
     }
     
+    fileprivate func setupNotifications()
+    {
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil/*self.responderView*/, queue: nil)
+        { notification in
+            guard let activeStateColor = self.activeStateColor else {
+                return
+            }
+            let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+            UIView.animate(withDuration: TimeInterval(truncating: duration), animations: {
+                self.layer.borderColor = activeStateColor.cgColor
+                self.titleLabel.textColor = activeStateColor
+                self.pickerArrowImageView.imageColor = activeStateColor
+            })
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil/*self.responderView*/, queue: nil)
+        { notification in
+            guard self.activeStateColor != nil else {
+                return
+            }
+            let duration = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+            UIView.animate(withDuration: TimeInterval(truncating: duration), animations: {
+                self.layer.borderColor = self.color.cgColor
+                self.titleLabel.textColor = self.color
+                self.pickerArrowImageView.imageColor = self.color
+            })
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     /*
     @objc func datePickerDidChangeValue(sender: UIDatePicker) {
         print("[\(type(of: self)) \(#function)] date: \(sender.date.description)")
@@ -317,8 +355,8 @@ import UIKit
         self.responderView.inputAccessoryView = self.pickerInputViewController.toolbar
         
         self.pickerFont = UIFont.systemFont(ofSize: 14)
-//        self.pickerInputViewController.color = self.color
         self.pickerInputViewController.delegate = self
+        self.setupNotifications()
         
 //        self.responderView.addTarget(self.responderView, action: #selector(becomeFirstResponder), for: .touchUpInside)
 //        self.responderView.delegate = self
